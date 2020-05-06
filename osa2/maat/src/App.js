@@ -16,15 +16,16 @@ const App = () => {
       })
   }, [])
 
+  
+
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
     
   const countriesToShow = countries.filter((country)=>
-    country.name.toLowerCase().includes(filter)
+    country.name.toLowerCase().includes(filter.toLowerCase())
   )
 
-  console.log(countriesToShow)
 
   if( countriesToShow.length > 10){
     return (
@@ -46,7 +47,7 @@ const App = () => {
     return (
       <div>
         <FilterForm filter={filter} handleFilterChange={handleFilterChange}/>
-        <Countries countries={countriesToShow}/>
+        <Countries countries={countriesToShow} setFilter={setFilter}/>
       </div>
     )
   }

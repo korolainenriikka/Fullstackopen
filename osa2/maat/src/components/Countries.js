@@ -5,7 +5,7 @@ const Countries = ( props ) => {
   return(
     <p>
     {props.countries.map((country, i) =>
-      <Country key={i} country ={country} />
+      <Country key={i} country ={country} setFilter={props.setFilter} />
     )}
     </p>
   )

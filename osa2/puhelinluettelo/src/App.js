@@ -11,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [message, setMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -23,7 +24,7 @@ const App = () => {
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
-
+  
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
@@ -44,7 +45,22 @@ const App = () => {
     }
 
     if(persons.find((person)=> person.name === newName)){
-      window.alert(`${personObject.name} is already added to phonebook`)
+      if(window.confirm(`${personObject.name} is already added to phonebook, replace the old number with a new one?`)){
+        const personId = persons
+          .filter((person)=> person.name === newName)
+          .map((person) => person.id)
+      
+        personService
+          .update(personId, personObject)
+          .catch(error => {
+            setErrorMessage(
+              `Information of ${person.name} has already been removed from server`
+            )
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+          })
+      }
     } else {
       event.preventDefault()
       personService
@@ -68,20 +84,21 @@ const App = () => {
     if (window.confirm(`Delete ${person.name} ?`)) {
       personService
       .del(person.id)
-    }   
-
-    setMessage(
-      `Deleted ${person.name}`
-    )
-    setTimeout(() => {
-      setMessage(null)
-    }, 5000)
+      
+      setMessage(
+        `Deleted ${person.name}`
+      )
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
+    }     
   }
 
   return (
     <div> 
       <h2>Phonebook</h2>
-      <Notification message={message} />
+      <Notification message={message} className={ok} />
+      <Notification message={errorMessage} className={error} />
       <FilterForm 
         filter={filter}
         handleFilterChange={handleFilterChange}

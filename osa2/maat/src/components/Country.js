@@ -1,16 +1,9 @@
 import React from 'react'
-import CountryDetails from './CountryDetails'
 
-const showCountryDetails = ({ country }) =>{
-  return(
-    <CountryDetails country={country}/>
-  )
-}
-
-const Country = ({ country }) => {
+const Country = ({ country , setFilter}) => {
   return(
     <>{country.name} <button 
-      onAction={() => showCountryDetails({country})}>show</button>
+      onClick={() => {setFilter(country.name)}}>show</button>
     <br/>
   </>
   )
