@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InV1c2theXR0YWphIiwiaWQiOiI1ZWUwOGIxMGFlZmQ2OTE0ZjQ0NmFmMGUiLCJpYXQiOjE1OTE3NzU0ODR9.wcwtubcmweERRoqwrg3foY6Kd4gFJYIiYTVYxJ70AcQ
+
+{
+  "title": "we usin middleware",
+  "author": "the cool dude making cool blog posts",
+  "url": "www.coolblog.cool",
+  "likes": "1000000"
+}
